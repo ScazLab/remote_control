@@ -5,7 +5,7 @@ ERROR = b'Fail'
 SUCCESS = b'Done'
 
 
-class ClientOrServer:
+class ClientOrServer(object):
 
     def __init__(self, port=5000):
         self.port = port
@@ -68,6 +68,7 @@ class Client(ClientOrServer):
         Raises exception on failure from server. Command must be a byte
         string.
         """
+        assert(type(command) is bytes)
         self.socket.send(command)
         ans = self.socket.recv()
         if ans == ERROR:
