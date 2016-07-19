@@ -1,6 +1,6 @@
 import time
 
-from remote_control.com import Server
+from remote_control import Server
 
 
 def print_cb(action):

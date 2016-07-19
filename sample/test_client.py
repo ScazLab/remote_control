@@ -1,4 +1,4 @@
-from remote_control.com import Client
+from remote_control import Client
 
 
 with Client() as client:
