@@ -10,7 +10,7 @@ def readme():
 
 
 setup(
-    name='remote_controle',
+    name='remote_control',
     version='0.0.1',
     description='',
     long_description=readme(),

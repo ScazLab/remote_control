@@ -25,11 +25,16 @@ class ClientOrServer:
 
 
 class Server(ClientOrServer):
-    """Callback takes message as argument and returns success as boolean."""
+    """Callback takes message as argument and returns success as boolean.
+
+    Once the run() has been launched the server passes received messages
+    to the callback and sends back success status.
+    """
 
     def __init__(self, port=5000, callback=lambda _: True):
         super(Server, self).__init__(port=port)
         self.callback = callback
+        self.running = False
 
     def _socket_address(self):
         return "tcp://*:{}".format(self.port)
@@ -38,7 +43,8 @@ class Server(ClientOrServer):
         self.socket.bind(self._socket_address())
 
     def run(self):
-        while True:
+        self.running = True
+        while self.running:
             cmd = self.socket.recv()
             result = self.callback(cmd)
             self.socket.send(SUCCESS if result else ERROR)
@@ -57,6 +63,11 @@ class Client(ClientOrServer):
         self.socket.connect(self._socket_address())
 
     def send_command(self, command):
+        """Sends command to server and waits for success value.
+
+        Raises exception on failure from server. Command must be a byte
+        string.
+        """
         self.socket.send(command)
         ans = self.socket.recv()
         if ans == ERROR:
