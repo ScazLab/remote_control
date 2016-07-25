@@ -16,6 +16,9 @@ class ClientOrServer(object):
         self.connect_or_bind()
         return self
 
+    def start(self):
+        self.__enter__()
+
     def close(self):
         self.__exit__()
 
