@@ -10,12 +10,16 @@ Both the client and server can be used either in a `with` block:
 
   .. code:: python
 
+      from remote_control import Client
+
       with Client() as c:
           status = c.send_message("Hi!")
 
 or explicitely:
 
   .. code:: python
+
+      from remote_control import Client
 
       c = Client()
       c.start()
